@@ -41,12 +41,38 @@ module.exports = {
                 : res.json(users)
         )
         .catch((err) => res.status(500).json(err));
-    }
-
+    },
     //delete user
-
+    deleteUser(req, res) {
+        User.findOneAndDelete({_id: req.params.username})
+        .then((users) => 
+            !users
+                ? res.status(404).json({message: 'No user with that ID'})
+                : User.deleteMany({_id: {$in: users.username}})
+        )
+        .then(() => res.json({message: 'User and Username deleted'}))
+        .catch((err) => res.status(500).json(err));
+    },
     //add friend
-
+    addFriend({ params }, res) {
+        User.findOneAndUpdate(
+            {_id: params.id},
+            {$addToSet: {friends: params.friendsId}},
+            {new: true}
+        )
+        .then((users) => res.json(users))
+        .catch((err) => res.status(400).json(err));
+    },
     //delete friend
+    removeFriend({ params }, res) {
+        User.findOneAndUpdate(
+            {_id: params.id},
+            {$addToSet: {friends: params.friendsId}},
+            {new: true}
+        )
+        .then((users) => res.json(users))
+        .catch((err) => res.status(400).json(err));
+    }
+};
 
-}
+module.exports = userController;
