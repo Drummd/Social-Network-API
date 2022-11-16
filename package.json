@@ -4,8 +4,8 @@
   "description": "social-network",
   "main": "server.js",
   "scripts": {
-    "test": "nodemon start",
-    "start": "node server.js"
+    "watch": "nodemon server",
+    "start": "node server"
   },
   "repository": {
     "type": "git",

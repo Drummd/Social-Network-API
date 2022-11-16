@@ -33,3 +33,5 @@ router
     .delete(removeFriend);
 
 //BONUS: remove a users associated thoughts when deleted
+
+module.exports = router
